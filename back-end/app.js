@@ -18,11 +18,11 @@ const Topping = require('./models/Topping');
 
 
 //----
-var cors = require('cors')
-
-if (NODE_ENV !== 'production') {
-       app.use(cors())
-}
+//var cors = require('cors')
+//
+//if (NODE_ENV !== 'production') {
+//       app.use(cors())
+//}
 
 var app = express();
 var router = express.Router();
@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 
 const multer = require('multer')
 const upload = multer({
-    dest: 'images/',
+    dest: 'public/images/',
     limits: {
 	fileSize: 10000000
     }
@@ -85,7 +85,7 @@ router.get('/api/toppings', async function(req, res) {
 
 router.get('/api/toppings/:id', async function(req, res) {
     try {
-	let toppings = await Topping.find();
+	let toppings = await Topping.findById(req.params.id);
 	res.send({
 	    toppings: toppings
 	});
@@ -95,12 +95,22 @@ router.get('/api/toppings/:id', async function(req, res) {
     }
 });
 
-router.post('/api/toppingPhotos', upload.single('photo'), async function(req, res) {
+router.delete('/api/toppings/:id', async function(req, res) {
+    try {
+	let toppings = await Topping.deleteById(req.params.id);
+	res.sendStatus(200);
+    } catch (error) {
+	console.log(error);
+	res.sendStatus(500);
+    }
+});
+
+router.post('/api/photos', upload.single('photo'), async function(req, res) {
     	if (!req.file) {
 		return res.sendStatus(400);
 	}
     	res.send({
-	    path: "../public/images/" + req.file.filename
+	    path: "/images/" + req.file.filename
 	});
 });
 
