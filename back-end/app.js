@@ -18,7 +18,11 @@ const Topping = require('./models/Topping');
 
 
 //----
+var cors = require('cors')
 
+if (NODE_ENV !== 'production') {
+       app.use(cors())
+}
 
 var app = express();
 var router = express.Router();
@@ -78,12 +82,25 @@ router.get('/api/toppings', async function(req, res) {
 	res.sendStatus(500);
     }
 });
+
+router.get('/api/toppings/:id', async function(req, res) {
+    try {
+	let toppings = await Topping.find();
+	res.send({
+	    toppings: toppings
+	});
+    } catch (error) {
+	console.log(error);
+	res.sendStatus(500);
+    }
+});
+
 router.post('/api/toppingPhotos', upload.single('photo'), async function(req, res) {
     	if (!req.file) {
 		return res.sendStatus(400);
 	}
     	res.send({
-	    path: "/images/" + req.file.filename
+	    path: "../public/images/" + req.file.filename
 	});
 });
 
