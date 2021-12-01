@@ -5,7 +5,7 @@
 <p>+${{topping.price.toFixed(2)}}: {{topping.name}}</p>
 </div>
 </div>
-   <p>Your {{toppingNames}} pizza costs ${{price.toFixed(2)}} </p>
+   <p>Your {{toppingNames}} Pizza costs ${{price.toFixed(2)}} </p>
   </div>
 </template>
 

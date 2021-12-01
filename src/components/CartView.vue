@@ -9,10 +9,12 @@
 </div>
 <h2>Total:</h2>
    <p>Your {{toppingNames}} pizza costs ${{price.toFixed(2)}} </p>
+   <button @click="createPizza()">Place order </button>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
 	name: "CartView",
 	computed: {
@@ -29,6 +31,21 @@ export default {
 	toppings() {
 		return this.$root.$data.selectedToppings;
 	}
+	},
+	methods:{
+         async createPizza(){
+           try {
+             let r1 = await axios.post('/api/pizzaOrders', {
+             name: this.name,
+             toppings: this.toppings,
+             price: this.price,
+             });
+             this.addItem = r1.data;
+             console.log(r1);
+             }catch (error) {
+               console.log(error);
+               }
+        },
 	}
 }
 </script>	

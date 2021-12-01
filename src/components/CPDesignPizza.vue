@@ -19,22 +19,12 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
 	name: "DesignPizza",
 	props: {
 		toppings: Array
 },
 methods: {
-        async getToppings(){
-          try {
-            let response = await axios.get("/api/toppings");
-            this.toppings = response.data;
-            return true;
-          } catch (error) {
-              console.log(error);
-          }
-	},
 	toggle(id){
 		let eId = 'topping'+id;
 		if(document.getElementById(eId).style.display === "none"){

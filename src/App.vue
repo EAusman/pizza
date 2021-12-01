@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/design">Design Pizza</router-link> |
-      <router-link to="/cart">Cart</router-link>
+      <router-link to="/cart">Cart</router-link> |
+      <router-link to="/admin">Top Secret Page</router-link>
     </div>
     <img alt = "Tastee Pizza" src = '../public/images/logo.png'/>
     <router-view class = "router"/>
