@@ -3,41 +3,41 @@
  <div class = "admin">
  <h1>The Admin Page!</h1>
     <div class="heading">
-      <h2>Add an Item</h2>
+      <h2>Add a Topping</h2>
     </div>
     <div class="add">
       <div class="form">
-        <input v-model="title" placeholder="Title">
+        <input v-model="name" placeholder="Name">
         <input v-model="price" placeholder="Price">
 	<input type="file" name="photo" @change="fileChanged">
         <button @click="upload">Upload</button>
       </div>
-      <div class="upload" v-if="addItem">
-        <h2>{{addItem.title}}</h2>
-        <p>Price: {{addItem.price}}</p>
-	<img :src="addItem.path" />
+      <div class="upload" v-if="addTopping">
+        <h2>{{addTopping.name}}</h2>
+        <p>Price: {{addTopping.price}}</p>
+	<img :src="addTopping.path" />
       </div>
     </div>
     <div class="heading">
-      <h2>Edit/Delete an Item</h2>
+      <h2>Edit/Delete an Topping</h2>
     </div>
     <div class="edit">
       <div class="form">
         <input v-model="findTitle" placeholder="Search">
         <div class="suggestions" v-if="suggestions.length > 0">
-          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
+          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectTopping(s)">{{s.name}}
           </div>
         </div>
       </div>
-      <div class="upload" v-if="findItem">
-        <input v-model="findItem.title">
-	<input v-model="findItem.price">
+      <div class="upload" v-if="findTopping">
+        <input v-model="findTopping.name">
+	<input v-model="findTopping.price">
         <p></p>
-        <img :src="findItem.path" />
+        <img :src="findTopping.path" />
       </div>
-      <div class="actions" v-if="findItem">
-        <button @click="deleteItem(findItem)">Delete</button>
-        <button @click="editItem(findItem)">Edit</button>
+      <div class="actions" v-if="findTopping">
+        <button @click="deleteTopping(findTopping)">Delete</button>
+        <button @click="editTopping(findTopping)">Edit</button>
       </div>
     </div>
     </div>
@@ -49,59 +49,59 @@ export default {
   name: 'Admin',
   data () {
     return {
-      title: "",
+      name: "",
       price: "",
       file: null,
-      addItem: null,
-      items: [],
+      addTopping: null,
+      toppings: [],
     findTitle: "",
-    findItem: null,
+    findTopping: null,
     }
   },
   computed: {
     suggestions() {
-      let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
-      return items.sort((a, b) => a.title > b.title);
+      let toppings = this.toppings.filter(topping => topping.name.toLowerCase().startsWith(this.findTitle.toLowerCase()));
+      return toppings.sort((a, b) => a.name > b.name);
     }
   },
   created() {
-    this.getItems();
+    this.getToppings();
   },
   methods: {
-    async editItem(item) {
+    async editTopping(topping) {
       try {
-        await axios.put("/api/items/" + item._id, {
-          title: this.findItem.title,
-          price: this.findItem.price,
+        await axios.put("/api/toppings/" + topping._id, {
+          name: this.findTopping.name,
+          price: this.findTopping.price,
         });
-        this.findItem = null;
-        this.getItems();
+        this.findTopping = null;
+        this.getToppings();
         return true;
       } catch (error) {
         console.log(error);
       }
     },
-async getItems() {
+async getToppings() {
   try {
-    let response = await axios.get("/api/items");
-    this.items = response.data;
+    let response = await axios.get("/api/toppings");
+    this.toppings = response.data;
     return true;
   } catch (error) {
     console.log(error);
   }
 },
-    selectItem(item) {
-      this.findTitle = "";
-      this.findItem = item;
+    selectTopping(topping) {
+      this.findName = "";
+      this.findTopping = topping;
     },
     fileChanged(event){
       this.file = event.target.files[0]
     },
-    async deleteItem(item) {
+    async deleteTopping(topping) {
       try {
-        await axios.delete("/api/items/" + item._id);
-        this.findItem = null;
-        this.getItems();
+        await axios.delete("/api/toppings/" + topping._id);
+        this.findTopping = null;
+        this.getToppings();
         return true;
       } catch (error) {
         console.log(error);
@@ -113,12 +113,12 @@ async getItems() {
 	console.log(this);
         formData.append('photo', this.file, this.file.name)
         let r1 = await axios.post('/api/photos', formData);
-        let r2 = await axios.post('/api/items', {
-          title: this.title,
+        let r2 = await axios.post('/api/toppings', {
+          name: this.name,
           path: r1.data.path,
           price: this.price,
         });
-        this.addItem = r2.data;
+        this.addTopping = r2.data;
       } catch (error) {
         console.log(error);
       }

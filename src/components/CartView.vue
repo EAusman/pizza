@@ -35,7 +35,7 @@ export default {
 	methods:{
          async createPizza(){
            try {
-             let r1 = await axios.post('/api/pizzaOrders', {
+             let r1 = await axios.post('http://localhost:3000/api/pizzaOrders', {
              name: this.name,
              toppings: this.toppings,
              price: this.price,
