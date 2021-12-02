@@ -33,7 +33,12 @@ methods: {
 		let eId = 'topping'+id;
 		if(document.getElementById(eId).style.display === "none"){
 document.getElementById(eId).style.display = "block";
-		this.$root.$data.selectedToppings.push(this.toppings[id-1])
+		this.toppings.forEach((elem) => {
+			if(elem.id === id) {
+                            this.$root.$data.selectedToppings.push(elem)
+                            return;
+			}
+		});
 	} else {
 		this.$root.$data.selectedToppings = this.$root.$data.selectedToppings.filter((elem) => elem.id !== id)
 document.getElementById(eId).style.display = "none";

@@ -134,9 +134,9 @@ router.post('/api/toppings', async function(req, res) {
 
 router.get('/api/pizzaOrders', async function(req, res) {
     try {
-	let toppings = await Topping.find();
+	let pizzaOrder = await PizzaOrder.find();
 	res.send({
-	    toppings: toppings
+	    pizzaOrder: pizzaOrder
 	});
     } catch (error) {
 	console.log(error);
@@ -153,7 +153,7 @@ router.post('/api/pizzaOrders', async function(req, res) {
 	    try {
 		await pizzaOrder.save();
 		res.send({
-		    pizzaOrders:pizzaOrders
+		    pizzaOrder:pizzaOrder
 		});
 	    } catch (error) {
 		console.log(error);
