@@ -10,7 +10,7 @@
     </div>
 	<div class="toggles">
 	<div class="toggle" v-for="topping in toppings" :key="topping.id">
-		<input @change="toggle(topping.id)" type="checkbox" :checked="isChecked(topping.id)">
+		<input @change="toggle(topping._id)" type="checkbox" :checked="isChecked(topping.id)">
 		<label>{{topping.name}}: {{"$"+topping.price.toFixed(2)}}</label>	
 	</div>	
 </div>
@@ -19,14 +19,14 @@
 </template>
 
 <script>
-import getToppings from '../toppings.js'
+//import getToppings from '../toppings.js'
 export default {
 	name: "DesignPizza",
 	props: {
 		toppings: Array
 },
 created: function(){
-	getToppings(this.$root.$data)
+//	getToppings(this.$root.$data)
 },
 methods: {
 	toggle(id){
