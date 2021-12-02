@@ -4,7 +4,7 @@
 <div id="container">
 <div class="toppings">
     <div class="topping" v-for="topping in toppings" :key="topping.id">
-	<img :style="'display:'+(isChecked(topping.id) ? 'block' : 'none')" :id="'topping'+topping.id" :src="'/images/toppings/'+topping.image"/>
+	<img :style="'display:'+(isChecked(topping.id) ? 'block' : 'none')" :id="'topping'+topping.id" :src=topping.path />
     </div>
     <img id="pizza" src="/images/pizza.png"/>
     </div>
@@ -19,22 +19,16 @@
 </template>
 
 <script>
-import axios from 'axios';
+import getToppings from '../toppings.js'
 export default {
 	name: "DesignPizza",
 	props: {
 		toppings: Array
 },
+created: function(){
+	getToppings(this.$root.$data)
+},
 methods: {
-        async getToppings(){
-          try {
-            let response = await axios.get("/api/toppings");
-            this.toppings = response.data;
-            return true;
-          } catch (error) {
-              console.log(error);
-          }
-	},
 	toggle(id){
 		let eId = 'topping'+id;
 		if(document.getElementById(eId).style.display === "none"){

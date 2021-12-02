@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-let toppingsMock = getToppings();
-async function getToppings() {
+async function getToppings(obj) {
   try {
-    let response = await axios.get("/api/toppings");
-    this.toppings = response.data;
-    return true;
+    axios.get("/api/toppings").then((res) => {
+		obj.toppings = res.data.toppings;
+    });
     } catch (error) {
         console.log(error);
   }
 }
-export default toppingsMock;
+export default getToppings;

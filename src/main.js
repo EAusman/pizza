@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import toppingsMock from './toppings.js'
+//import getToppings from './toppings.js'
 
 Vue.config.productionTip = false
 
 let data = {
-	toppings: toppingsMock,
+	toppings: [],
 	selectedToppings: [],
 }
 new Vue({
