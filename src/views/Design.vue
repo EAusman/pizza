@@ -1,6 +1,6 @@
 <template>
   <div class="Design">
-	<DesignPizza :toppings="toppings"/>
+	<DesignPizza v-if="this.$root.$data.toppings" :toppings="this.$root.$data.toppings"/>
   </div>
 </template>
 
@@ -15,7 +15,6 @@ export default {
   },
   data(){
 	return {
-	toppings: this.$root.$data.toppings
 }
 },	
 }
