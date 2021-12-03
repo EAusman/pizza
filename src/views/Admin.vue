@@ -30,8 +30,8 @@
         </div>
       </div>
       <div class="upload" v-if="findTopping">
-        <input v-model="findTopping.name">
-	<input v-model="findTopping.price">
+        <input v-model="editName">
+	<input v-model="editPrice">
         <p></p>
         <img :src="findTopping.path" />
       </div>
@@ -52,29 +52,46 @@ export default {
       name: "",
       price: "",
       file: null,
+      editName: "",
+      editPrice: 0,
       addTopping: null,
       toppings: [],
     findTitle: "",
-    findTopping: null,
+    //findTopping: null,
     }
   },
   computed: {
     suggestions() {
-      let toppings = this.toppings.filter(topping => topping.name.toLowerCase().startsWith(this.findTitle.toLowerCase()));
+      let toppings = this.$root.$data.toppings.filter(topping => topping.name.toLowerCase().startsWith(this.findTitle.toLowerCase()));
       return toppings.sort((a, b) => a.name > b.name);
-    }
+    },
+    findTopping() {
+	return this.findToppingByName(this.findTitle);
+  },
+
   },
   created() {
     this.getToppings();
   },
   methods: {
+    findToppingByName(strName){
+	for(let topping of this.$root.$data.toppings) {
+		if(topping.name === strName) {
+		//	this.findTopping = topping;
+			this.editName = topping.name;
+			this.editPrice = topping.price;
+			return topping;
+		}
+	}
+	return null;
+    },
     async editTopping(topping) {
       try {
         await axios.put("/api/toppings/" + topping._id, {
-          name: this.findTopping.name,
-          price: this.findTopping.price,
+          name: this.editName,//this.findTopping.name,
+          price: this.editPrice,//this.findTopping.price,
         });
-        this.findTopping = null;
+        //this.findTopping = null;
         this.getToppings();
         return true;
       } catch (error) {
@@ -90,9 +107,9 @@ async getToppings() {
     console.log(error);
   }
 },
-    selectTopping(topping) {
+    selectTopping() {
       this.findName = "";
-      this.findTopping = topping;
+      //this.findTopping = topping;
     },
     fileChanged(event){
       this.file = event.target.files[0]
@@ -100,7 +117,7 @@ async getToppings() {
     async deleteTopping(topping) {
       try {
         await axios.delete("/api/toppings/" + topping._id);
-        this.findTopping = null;
+        //this.findTopping = null;
         this.getToppings();
         return true;
       } catch (error) {
