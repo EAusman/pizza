@@ -10,7 +10,7 @@
     <img alt = "Tastee Pizza" src = '../public/images/logo.png'/>
     <router-view class = "router"/>
     <div id="footer">
-      <a href = 'https://github.com/Gameslinger/pizzalab'>Github</a>
+      <a href = 'https://github.com/EAusman/pizza'>Github</a>
     </div>
   </div>
 </template>
