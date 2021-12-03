@@ -114,7 +114,6 @@ router.post('/api/photos', upload.single('photo'), async function(req, res) {
 });
 
 router.post('/api/toppings', async function(req, res) {
-    		console.log(req.body);
 	    let topping = new Topping({
 		name: req.body.name,
 		path: req.body.path,
@@ -163,7 +162,7 @@ router.post('/api/pizzaOrders', async function(req, res) {
 
 router.delete('/api/pizzaOrders/:id', async function(req, res) {
     try {
-	let pizzaOrders = await PizzaOrders.findByIdAndRemove(req.params.id);
+	let pizzaOrders = await PizzaOrder.findByIdAndRemove(req.params.id);
 	res.sendStatus(200);
     } catch (error) {
 	console.log(error);
