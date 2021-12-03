@@ -9,7 +9,8 @@
 </div>
 <h2>Total:</h2>
    <p>Your {{toppingNames}} pizza costs ${{price.toFixed(2)}} </p>
-   <button @click="createPizza()">Place order </button>
+   <input v-model="address" placeholder="Delivery address">
+   <button @click="createPizza()">Place Order </button>
   </div>
 </template>
 
@@ -17,6 +18,11 @@
 import axios from 'axios';
 export default {
 	name: "CartView",
+	data: function() {
+        return {
+            address: ""
+        }
+	},
 	computed: {
 	price(){
           return this.$root.$data.selectedToppings.reduce((prev, current) => {
@@ -39,6 +45,7 @@ export default {
              name: this.name,
              toppings: this.toppings,
              price: this.price,
+             address: this.address,
              });
              this.addItem = r1.data;
              console.log(r1);

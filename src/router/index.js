@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Design from '../views/Design.vue'
 import Cart from '../views/Cart.vue'
 import Admin from '../views/Admin.vue'
+import Delivery from '../views/Delivery.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -11,6 +12,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/delivery',
+    name: 'Delivery',
+    component: Delivery
   },
   {
     path: '/admin',
