@@ -96,7 +96,7 @@ router.get('/api/toppings/:id', async function(req, res) {
 });
 router.delete('/api/toppings/:id', async function(req, res) {
     try {
-	let toppings = await Topping.deleteById(req.params.id);
+	let toppings = await Topping.findByIdAndRemove(req.params.id);
 	res.sendStatus(200);
     } catch (error) {
 	console.log(error);
@@ -163,7 +163,7 @@ router.post('/api/pizzaOrders', async function(req, res) {
 
 router.delete('/api/pizzaOrders/:id', async function(req, res) {
     try {
-	let pizzaOrders = await PizzaOrders.deleteById(req.params.id);
+	let pizzaOrders = await PizzaOrders.findByIdAndRemove(req.params.id);
 	res.sendStatus(200);
     } catch (error) {
 	console.log(error);
@@ -175,12 +175,12 @@ router.put('/api/toppings/:id', async(req,res) => {
 	try {
 	    let id = req.params.id;
 	    let newName = req.body.name;
-	    let newPath = req.body.path;
+	    //let newPath = req.body.path;
 	    let newPrice = req.body.price;
 	    console.log("Updating topping with id: "+id);
 	    let item = await Topping.findById(id);
 	    item.name = newName;
-	    item.path = newPath;
+	    //item.path = newPath;
 	    item.price = newPrice;
 	    item.save();
 	} catch(error) {
