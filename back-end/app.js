@@ -94,7 +94,6 @@ router.get('/api/toppings/:id', async function(req, res) {
 	res.sendStatus(500);
     }
 });
-
 router.delete('/api/toppings/:id', async function(req, res) {
     try {
 	let toppings = await Topping.deleteById(req.params.id);
@@ -149,6 +148,7 @@ router.post('/api/pizzaOrders', async function(req, res) {
 		name: req.body.name,
 		toppings: req.body.toppings,
 		price: req.body.price,
+		address: req.body.address,
 	    });
 	    try {
 		await pizzaOrder.save();

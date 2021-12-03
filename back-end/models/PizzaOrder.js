@@ -6,6 +6,7 @@ var pizzaOrderSchema = new mongoose.Schema({
 	  ref: "Topping"
       }], //List of ordered ingredients
       price: Number,
+      address: String,
 });
 pizzaOrderSchema.virtual('id').get(function() {
 	return this._id.toHexString();
