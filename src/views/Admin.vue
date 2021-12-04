@@ -12,11 +12,6 @@
 	<input type="file" name="photo" @change="fileChanged">
         <button @click="upload">Upload</button>
       </div>
-      <div class="upload" v-if="addTopping">
-        <h2>{{addTopping.name}}</h2>
-        <p>Price: {{addTopping.price}}</p>
-	<img :src="addTopping.path" />
-      </div>
     </div>
     <div class="heading">
       <h2>Edit/Delete an Topping</h2>
